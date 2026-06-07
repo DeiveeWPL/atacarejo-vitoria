@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atacarejo Vitória – Oferta da Feira</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Firebase SDK via CDN compatível -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <style>
-  :root {
-    --c1:#0e4d0e;--c2:#1a6b1a;--c3:#2a9d2a;
-    --bg:#f0f7f0;--accent:#f5c300;
-    --ph1:#d4edda;--ph2:#c3e6cb;--hero-text:#0e4d0e;--sec:#1a6b1a;
-    --white:#fff;--yellow:#f5c300;--shadow:0 4px 20px rgba(0,0,0,.10);
-  }
-  body[data-theme="hortifruti"]{--c1:#0e4d0e;--c2:#1a6b1a;--c3:#2a9d2a;--bg:#f0f7f0;--ph1:#d4edda;--ph2:#c3e6cb;--hero-text:#0e4d0e;--sec:#1a6b1a;}
-  body[data-theme="carnes"]    {--c1:#6b0e0e;--c2:#9d1a1a;--c3:#c93030;--bg:#fff0f0;--ph1:#ffd6d6;--ph2:#ffbcbc;--hero-text:#6b0e0e;--sec:#9d1a1a;}
-  body[data-theme="limpeza"]   {--c1:#0e2a6b;--c2:#1a4a9d;--c3:#2266c9;--bg:#f0f4ff;--ph1:#d6e4ff;--ph2:#bdd3ff;--hero-text:#0e2a6b;--sec:#1a4a9d;}
-  body[data-theme="laticinios"]{--c1:#5c4a00;--c2:#8a6f00;--c3:#c9a200;--bg:#fffcf0;--ph1:#fff3cc;--ph2:#ffe99a;--hero-text:#5c4a00;--sec:#8a6f00;}
-  body[data-theme="bebidas"]   {--c1:#3b0e6b;--c2:#5a1a9d;--c3:#7a2ec9;--bg:#f5f0ff;--ph1:#e4d6ff;--ph2:#d2bcff;--hero-text:#3b0e6b;--sec:#5a1a9d;}
-  body[data-theme="padaria"]   {--c1:#5c2a00;--c2:#8a4500;--c3:#c96800;--bg:#fff6f0;--ph1:#ffe0cc;--ph2:#ffc9a8;--hero-text:#5c2a00;--sec:#8a4500;}
-  body[data-theme="higiene"]   {--c1:#6b0e45;--c2:#9d1a66;--c3:#c9308a;--bg:#fff0f7;--ph1:#ffd6ee;--ph2:#ffbce3;--hero-text:#6b0e45;--sec:#9d1a66;}
-  body[data-theme="geral"]     {--c1:#2a2a2a;--c2:#444;--c3:#666;--bg:#f4f4f4;--ph1:#e0e0e0;--ph2:#ccc;--hero-text:#2a2a2a;--sec:#444;}
+  :root{--c1:#0e4d0e;--c2:#1a6b1a;--c3:#2a9d2a;--bg:#f0f7f0;--accent:#f5c300;--ph1:#d4edda;--ph2:#c3e6cb;--hero-text:#0e4d0e;--sec:#1a6b1a;--white:#fff;--yellow:#f5c300;--shadow:0 4px 20px rgba(0,0,0,.10)}
+  body[data-theme="hortifruti"]{--c1:#0e4d0e;--c2:#1a6b1a;--c3:#2a9d2a;--bg:#f0f7f0;--ph1:#d4edda;--ph2:#c3e6cb;--hero-text:#0e4d0e;--sec:#1a6b1a}
+  body[data-theme="carnes"]{--c1:#6b0e0e;--c2:#9d1a1a;--c3:#c93030;--bg:#fff0f0;--ph1:#ffd6d6;--ph2:#ffbcbc;--hero-text:#6b0e0e;--sec:#9d1a1a}
+  body[data-theme="limpeza"]{--c1:#0e2a6b;--c2:#1a4a9d;--c3:#2266c9;--bg:#f0f4ff;--ph1:#d6e4ff;--ph2:#bdd3ff;--hero-text:#0e2a6b;--sec:#1a4a9d}
+  body[data-theme="laticinios"]{--c1:#5c4a00;--c2:#8a6f00;--c3:#c9a200;--bg:#fffcf0;--ph1:#fff3cc;--ph2:#ffe99a;--hero-text:#5c4a00;--sec:#8a6f00}
+  body[data-theme="bebidas"]{--c1:#3b0e6b;--c2:#5a1a9d;--c3:#7a2ec9;--bg:#f5f0ff;--ph1:#e4d6ff;--ph2:#d2bcff;--hero-text:#3b0e6b;--sec:#5a1a9d}
+  body[data-theme="padaria"]{--c1:#5c2a00;--c2:#8a4500;--c3:#c96800;--bg:#fff6f0;--ph1:#ffe0cc;--ph2:#ffc9a8;--hero-text:#5c2a00;--sec:#8a4500}
+  body[data-theme="higiene"]{--c1:#6b0e45;--c2:#9d1a66;--c3:#c9308a;--bg:#fff0f7;--ph1:#ffd6ee;--ph2:#ffbce3;--hero-text:#6b0e45;--sec:#9d1a66}
+  body[data-theme="geral"]{--c1:#2a2a2a;--c2:#444;--c3:#666;--bg:#f4f4f4;--ph1:#e0e0e0;--ph2:#ccc;--hero-text:#2a2a2a;--sec:#444}
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Nunito',sans-serif;background:var(--bg);color:#1a1a1a;min-height:100vh;transition:background .5s}
@@ -45,6 +45,13 @@
 
   .hero-strip{background:var(--accent);text-align:center;padding:9px 16px;font-family:'Bebas Neue',cursive;font-size:clamp(1.2rem,3.5vw,1.8rem);color:var(--hero-text);letter-spacing:3px;transition:background .5s,color .5s}
 
+  .sync-bar{background:rgba(0,0,0,.06);text-align:center;padding:6px;font-size:.72rem;color:#888;display:flex;align-items:center;justify-content:center;gap:6px}
+  .sync-dot{width:8px;height:8px;border-radius:50%;background:#ccc;flex-shrink:0}
+  .sync-dot.online{background:#25d366}
+  .sync-dot.offline{background:#e63946}
+  .sync-dot.syncing{background:#f5c300;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
   main{max-width:980px;margin:0 auto;padding:28px 16px 100px}
   .section-title{display:flex;align-items:center;gap:10px;margin-bottom:20px}
   .section-title h2{font-family:'Bebas Neue',cursive;font-size:1.9rem;color:var(--sec);letter-spacing:2px;transition:color .4s;white-space:nowrap}
@@ -68,7 +75,7 @@
   .price-cents{font-family:'Bebas Neue',cursive;font-size:1rem;color:var(--yellow);line-height:1}
   .price-unit{font-size:.6rem;color:rgba(255,255,255,.75);font-weight:700;line-height:1.2;text-transform:lowercase}
 
-  .btn-add-cart{width:100%;border:none;cursor:pointer;padding:10px 12px;font-family:'Nunito',sans-serif;font-weight:900;font-size:.82rem;background:rgba(0,0,0,.18);color:#fff;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s;letter-spacing:.3px}
+  .btn-add-cart{width:100%;border:none;cursor:pointer;padding:10px 12px;font-family:'Nunito',sans-serif;font-weight:900;font-size:.82rem;background:rgba(0,0,0,.18);color:#fff;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s}
   .btn-add-cart:hover{background:rgba(0,0,0,.32)}
   .qty-controls{width:100%;display:none;align-items:center;justify-content:space-between;background:rgba(0,0,0,.22);padding:6px 12px;gap:8px}
   .qty-controls.visible{display:flex}
@@ -85,14 +92,6 @@
   .btn-edit{background:#f5c300;color:#1a2e1a}
   .btn-delete{background:#e63946;color:#fff}
 
-  /* SYNC STATUS */
-  .sync-bar{background:rgba(0,0,0,.06);text-align:center;padding:6px;font-size:.72rem;color:#888;display:flex;align-items:center;justify-content:center;gap:6px}
-  .sync-dot{width:8px;height:8px;border-radius:50%;background:#ccc;flex-shrink:0}
-  .sync-dot.online{background:#25d366}
-  .sync-dot.offline{background:#e63946}
-  .sync-dot.syncing{background:#f5c300;animation:pulse 1s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
   #cart-fab{position:fixed;bottom:24px;left:24px;background:#25d366;color:#fff;border:none;border-radius:50px;padding:13px 20px;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;cursor:pointer;box-shadow:0 4px 24px rgba(37,211,102,.5);display:none;align-items:center;gap:10px;z-index:1000;transition:transform .2s,box-shadow .2s}
   #cart-fab:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(37,211,102,.6)}
   #cart-fab .fab-count{background:#fff;color:#25d366;border-radius:50%;width:24px;height:24px;font-size:.78rem;font-weight:900;display:flex;align-items:center;justify-content:center}
@@ -105,7 +104,6 @@
   .drawer-header{padding:16px 22px 14px;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between}
   .drawer-header h3{font-family:'Bebas Neue',cursive;font-size:1.6rem;color:#1a1a1a;letter-spacing:1px}
   .drawer-close{background:#f3f4f6;border:none;border-radius:50%;width:34px;height:34px;font-size:1rem;cursor:pointer;color:#555;display:flex;align-items:center;justify-content:center}
-  .drawer-close:hover{background:#e5e7eb}
   .drawer-name-row{padding:14px 22px 10px;border-bottom:2px solid #f0f0f0}
   .drawer-name-row label{display:block;font-size:.75rem;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
   .drawer-name-row input{width:100%;padding:10px 14px;border:2px solid #e5e7eb;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s}
@@ -189,8 +187,6 @@
 
   .empty-state{grid-column:1/-1;text-align:center;padding:44px 20px;color:#aaa}
   .empty-state .icon{font-size:2.8rem;margin-bottom:10px}
-
-  /* Loading skeleton */
   .skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:18px;aspect-ratio:1/1}
   @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
@@ -224,5 +220,4 @@
 </div>
 
 <div class="hero-strip">
-  🔥 OFERTA DA FEIRA — <span id="strip-category">HORTIFRUTI</span> — APROVEITE! 🔥
-</
+  🔥 OFERTA DA FEIRA
